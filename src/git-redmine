@@ -120,6 +120,6 @@ j = json.loads(data)
 issues = j["issues"]
 issues.sort(cmp=lambda x,y: cmp(y["priority"]["id"], x["priority"]["id"]))
 for issue in issues:
-    print "%3d%% %s %s [%s] %s" % (issue["done_ratio"], issue["priority"]["id"], ('#%d' % issue["id"]).ljust(5), issue["status"]["name"], issue["subject"])
+    print "%3d%% %s %s [%s] %s" % (issue["done_ratio"], issue["priority"]["id"], ('#%d' % issue["id"]).ljust(5), issue["status"]["name"].encode('utf-8'), issue["subject"].encode('utf-8'))
 
 quit(0)
