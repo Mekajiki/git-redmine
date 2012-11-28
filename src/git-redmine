@@ -43,6 +43,8 @@ if not project_url:
     print "Please configure Redmine URL of the project using:"
     print "    git config redmine.projectUrl '<project url>'"
     quit(1)
+url_object = urlparse(project_url)
+redmine_url = url_object.scheme + '://' + url_object.netloc
 
 usage = "usage: %prog [options] keyword"
 parser = OptionParser(usage)
@@ -55,7 +57,7 @@ u = urlparse(project_url)
 
 def get_issue(id):
     conn = httplib.HTTPConnection(u.netloc)
-    conn.request("GET", "%s/issues/%d.json?key=%s" % (u.path, id, api_key))
+    conn.request("GET", "%s/issues/%d.json?key=%s" % (redmine_url, id, api_key))
     r1 = conn.getresponse()
     if r1.status != 200:
         print r1.status, r1.reason
@@ -68,7 +70,7 @@ def update_issue(id, data):
     json_data = json.dumps(data)
 
     conn = httplib.HTTPConnection(u.netloc)
-    conn.request("PUT", "%s/issues/%d.json?key=%s" % (u.path, id, api_key), body=json_data, headers={"Content-Type":"application/json"})
+    conn.request("PUT", "%s/issues/%d.json?key=%s" % (redmine_url, id, api_key), body=json_data, headers={"Content-Type":"application/json"})
     r1 = conn.getresponse()
     if r1.status != 200:
         print r1.status, r1.reason
