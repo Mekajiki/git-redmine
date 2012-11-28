@@ -107,6 +107,7 @@ if args:
     if args[0].isdigit():
         issue = get_issue(int(args[0]))
         print "%s : #%d" % ("ID".rjust(16), issue["issue"]["id"])
+        print "%s : %s" % ("Status".rjust(16), issue["issue"]["status"]["name"].encode('utf-8'))
         print "%s : %s" % ("Priority".rjust(16), issue["issue"]["priority"]["name"].encode('utf-8'))
         print "%s : %s" % ("Tracker".rjust(16), issue["issue"]["tracker"]["name"].encode('utf-8'))
         print "%s : %d%%" % ("Done Ratio".rjust(16), issue["issue"]["done_ratio"])
